@@ -30,9 +30,9 @@ FROM $HAYSTACK_BASE_IMAGE
 #RUN python3 -c "from haystack.utils.docker import cache_models;cache_models($hf_model_names, $hf_token)"
 
 # To copy pipeline yml into the docker
-ARG local_pipeline_path=<blah>.yml
-ARG container_pipeline_path=/opt/haystack_pipelines/reader_retriever.yml
-COPY $local_pipeline_path $container_pipeline_path
+ARG repo_pipeline_path=retriever_reader.yml
+ARG container_pipeline_path=/opt/pipelines/pipeline.yml
+COPY $repo_pipeline_path $container_pipeline_path
 
 # Exporting Pipeline path as an env variable
 # Haystack reads this env variable to load the appropriate pipeline
