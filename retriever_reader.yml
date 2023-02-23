@@ -1,6 +1,8 @@
 components:
   - name: DocumentStore
-    type: InMemoryDocumentStore
+    type: ElasticsearchDocumentStore
+    params:
+      host: 172.17.0.2
   - name: tfidf_ret
     params:
       document_store: DocumentStore
