@@ -1,0 +1,33 @@
+components:
+  - name: DocumentStore
+    type: InMemoryDocumentStore
+  - name: tfidf_ret
+    params:
+      document_store: DocumentStore
+    type: TfidfRetriever
+  - name: reader
+    params:
+      # set model_name_or_path HF model_name
+      model_name_or_path: deepset/minilm-uncased-squad2
+      # here we have used a base-cpu image
+      use_gpu: false
+    type: FARMReader
+  - name: TextFileConverter
+    type: TextConverter
+pipelines:
+  - name: query
+    nodes:
+      - inputs: [Query]
+        name: tfidf_ret
+      - inputs: [tfidf_ret]
+        name: reader
+  - name: indexing
+    nodes:
+      - name: TextFileConverter
+        inputs: [ File ]
+      - name: tfidf_ret
+        inputs: [ TextFileConverter ]
+      - name: DocumentStore
+        inputs: [ tfidf_ret ]
+version: ignore
+
