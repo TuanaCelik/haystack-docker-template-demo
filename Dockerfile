@@ -40,6 +40,6 @@ ENV PIPELINE_YAML_PATH=$container_pipeline_path
 
 RUN chmod 700 /opt/file-upload
 # cmd for starting Haystack API server
-CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0", "-k", "uvicorn.workers.UvicornWorker", "--port", "7860", "--workers", "1", "--timeout", "180"]
+CMD ["gunicorn", "rest_api.application:app",  "-b", "0.0.0.0:7860", "-k", "uvicorn.workers.UvicornWorker", "--workers", "1", "--timeout", "180"]
 
 
